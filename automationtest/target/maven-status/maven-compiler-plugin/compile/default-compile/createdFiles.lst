@@ -1,0 +1,4 @@
+com/automation/tests/HomePageTest.class
+com/automation/framework/BaseTest.class
+com/automation/framework/DataProviderClass.class
+com/automation/framework/AbstractBaseTest.class
