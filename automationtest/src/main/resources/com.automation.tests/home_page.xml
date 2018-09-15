@@ -5,11 +5,20 @@
     </listeners>
     <parameter name="BROWSER" value="CHROME"/>
 
-    <test name="Check Home page">
+    <test name="Check Home page" >
         <classes>
             <class name="com.automation.tests.HomePageTest">
                 <methods>
-                    <include name="endToEndFlow"/>
+                    <include name="testHomePage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Check Flight page">
+        <classes>
+            <class name="com.automation.tests.HomePageTest">
+                <methods>
+                    <include name="testFlightsPage"/>
                 </methods>
             </class>
         </classes>

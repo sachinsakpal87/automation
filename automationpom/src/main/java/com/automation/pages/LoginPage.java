@@ -30,11 +30,11 @@ public class LoginPage extends AbstractPage {
         checkArgument(StringUtils.isNotBlank(password), "password should not be null or empty");
         wait("Wait till username displayed", this.username, 4);
         if (this.username.isDisplayed()) {
-            action("Clearing Username :: ", this.username, we -> this.username.clear());
-            action(String.format("Entering Username :: %s", username), this.username, we -> this.username.sendKeys(username));
-            action("Clearing password :: ", this.username, we -> this.password.clear());
-            action(String.format("Entering password :: %s", password), this.password, we -> this.password.sendKeys(password));
-            action("Clicking Login", login, we -> login.click());
+            action("Clearing Username :: ", this.username, we -> ((WebElement)we).clear());
+            action(String.format("Entering Username :: %s", username), this.username, we -> ((WebElement)we).sendKeys(username));
+            action("Clearing password :: ", this.username, we -> ((WebElement)we).clear());
+            action(String.format("Entering password :: %s", password), this.password, we -> ((WebElement)we).sendKeys(password));
+            action("Clicking Login", login, we -> ((WebElement)we).click());
         } else {
             throw new ArithmeticException("");
         }
