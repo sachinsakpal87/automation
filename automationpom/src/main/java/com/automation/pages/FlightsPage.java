@@ -35,25 +35,22 @@ public class FlightsPage extends AbstractPage {
 
     public FlightsPage enterDepartureDate(String date) {
         checkArgument(StringUtils.isNotBlank(date), "date should not be null or empty");
-        action(String.format("Entering departure date as %s",date), departure, pe -> pe.sendKeys(date));
-        return this;
+        return  action(String.format("Entering departure date as %s",date), departure, pe -> pe.sendKeys(date), this);
+
     }
 
     public FlightsPage enterArrivalDate(String date) {
         checkArgument(StringUtils.isNotBlank(date), "date should not be null or empty");
-        action(String.format("Entering arrival date as %s",date), arrival, pe -> pe.sendKeys(date));
-        return this;
+        return action(String.format("Entering arrival date as %s",date), arrival, pe -> pe.sendKeys(date), this);
     }
 
     public FlightsPage selectCabinClass(String cabinclass) {
         checkArgument(StringUtils.isNotBlank(cabinclass), "Cabin class should not be null or empty");
-        action(String.format("Select Cabin class %s",cabinclass), new Select(cabinClass), pe -> pe.selectByValue(cabinclass));
-        return this;
+        return action(String.format("Select Cabin class %s",cabinclass), new Select(cabinClass), pe -> pe.selectByValue(cabinclass), this);
     }
 
     public FlightsPage clickSearch(){
-        action( "Clicking search",search, pe->click(pe));
-        return this;
+        return action( "Clicking search",search, pe->click(pe), this);
     }
 }
 

@@ -53,29 +53,27 @@ public class HomePage extends AbstractPage {
 
     public HomePage enterCheckInDate(String date) {
         checkArgument(StringUtils.isNotBlank(date), "date should not be null or empty");
-        action(String.format("Entering check-in Date as %s",date), checkIn, pe -> pe.sendKeys(date));
+        action(String.format("Entering check-in Date as %s",date), checkIn, pe -> pe.sendKeys(date),this);
         return this;
     }
 
     public HomePage enterCheckOutDate(String date) {
         checkArgument(StringUtils.isNotBlank(date), "date should not be null or empty");
-        action(String.format("Entering check-out Date as %s",date), checkOut, pe -> pe.sendKeys(date));
+        action(String.format("Entering check-out Date as %s",date), checkOut, pe -> pe.sendKeys(date),this);
         return this;
     }
 
     public HotelPage clickSearch(){
-        action( "Clicking search",search, pe->click(pe));
-        return loadPage(HotelPage.class);
+        return action( "Clicking search",search, pe->click(pe),loadPage(HotelPage.class));
     }
 
     public HomePage selectRating(int rating){
-        WebElement webElement = ratingsList.findElement(By.xpath(String.format("//input[@id='%d']/following-sibling::ins",rating)));
-        action("Selecting rating", webElement,we->we.click());
+        action("Selecting rating", ratingsList.findElement(By.xpath(String.format("//input[@id='%d']/following-sibling::ins",rating))),we->we.click(),this);
         return this;
     }
 
     public HomePage selectPropertyType(List<String> list){
-        list.forEach(li->action(String.format("Selecting Property type %s",li),getDriver().findElement(By.xpath(String.format("//input[@type='checkbox' and @id='%s']/following-sibling::ins",li))),we->we.click()));
+        list.forEach(li->action(String.format("Selecting Property type %s",li),findElement(By.xpath(String.format("//input[@type='checkbox' and @id='%s']/following-sibling::ins",li))),we->click(we),this));
         return this;
     }
 }

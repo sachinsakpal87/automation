@@ -1,6 +1,7 @@
 package com.automation.framework;
 
 import com.automation.CustomContext;
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 
 import java.lang.reflect.InvocationTargetException;
@@ -10,10 +11,13 @@ public class WebUser {
     private static final String THIS_PTR_WEB_USER = "THIS_PTR_WEB_USER";
     private final WebDriver driver;
     private final CustomContext context;
+    @Getter
+    private final String mainWindowHandle;
 
     private WebUser(WebDriver driver, CustomContext context) {
         this.driver = driver;
         this.context = context;
+        mainWindowHandle = driver.getWindowHandle();
     }
 
 
