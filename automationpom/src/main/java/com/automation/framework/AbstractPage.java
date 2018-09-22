@@ -7,6 +7,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.internal.Locatable;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -250,6 +251,16 @@ public abstract class AbstractPage {
 
     protected void scrollByCordinates(WebElement element){
         ((Locatable)element).getCoordinates().inViewPort();
+    }
+
+    protected  boolean brokenImage(WebElement element){
+        EventFiringWebDriver eventFiringWebDriver = new EventFiringWebDriver(getDriver());
+        String script = "return (typeof arguments[0].naturalWidth !='undefined' && arguments[0].naturalWidth>0)";
+        return (boolean)eventFiringWebDriver.executeScript(script,element);
+    }
+
+    protected String getPageSource(){
+        return getDriver().getPageSource();
     }
 
     protected void click(WebElement webElement) {
