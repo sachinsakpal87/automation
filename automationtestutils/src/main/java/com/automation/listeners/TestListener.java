@@ -9,10 +9,6 @@ import static com.automation.reports.ExtentTestManager.*;
 
 public class TestListener implements ITestListener {
 
-    private static String getTestName(ITestResult iTestResult) {
-        return iTestResult.getTestName();
-    }
-
     private static String getMethodName(ITestResult iTestResult) {
         return iTestResult.getMethod().getMethodName();
     }
@@ -61,5 +57,10 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
+        if (iTestResult.getThrowable() != null) {
+            LogFail("Test is failed %s", iTestResult.getThrowable(), getMethodName(iTestResult));
+        } else {
+            LogFail("Test is failed %s", null, getMethodName(iTestResult));
+        }
     }
 }

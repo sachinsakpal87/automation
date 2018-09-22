@@ -64,16 +64,16 @@ public class HomePage extends AbstractPage {
     }
 
     public HotelPage clickSearch(){
-        return action( "Clicking search",search, pe->click(pe),loadPage(HotelPage.class));
+        return action( "Clicking search",search, this::click,loadPage(HotelPage.class));
     }
 
     public HomePage selectRating(int rating){
-        action("Selecting rating", ratingsList.findElement(By.xpath(String.format("//input[@id='%d']/following-sibling::ins",rating))),we->we.click(),this);
+        action("Selecting rating", ratingsList.findElement(By.xpath(String.format("//input[@id='%d']/following-sibling::ins",rating))),this::click,this);
         return this;
     }
 
     public HomePage selectPropertyType(List<String> list){
-        list.forEach(li->action(String.format("Selecting Property type %s",li),findElement(By.xpath(String.format("//input[@type='checkbox' and @id='%s']/following-sibling::ins",li))),we->click(we),this));
+        list.forEach(li->action(String.format("Selecting Property type %s",li),findElement(By.xpath(String.format("//input[@type='checkbox' and @id='%s']/following-sibling::ins",li))), this::click,this));
         return this;
     }
 }

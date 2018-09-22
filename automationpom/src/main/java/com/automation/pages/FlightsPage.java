@@ -50,7 +50,7 @@ public class FlightsPage extends AbstractPage {
     }
 
     public FlightsPage clickSearch(){
-        return action( "Clicking search",search, pe->click(pe), this);
+        return action( "Clicking search",search, this::click, this);
     }
 }
 

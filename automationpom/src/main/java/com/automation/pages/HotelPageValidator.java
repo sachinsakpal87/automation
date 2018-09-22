@@ -13,10 +13,12 @@ public class HotelPageValidator extends HomePageValidator {
         super(page);
     }
 
+    @Override
     protected HotelPage getPage() {
         return (HotelPage) super.getPage();
     }
 
+    @Override
     public HotelPage isTitleDisplayed() {
         assertThat(!getPage().getPageTitle().isEmpty(), is(true));
         return getPage();

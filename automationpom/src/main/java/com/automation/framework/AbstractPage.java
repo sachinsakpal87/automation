@@ -123,10 +123,6 @@ public abstract class AbstractPage {
         return wait(logMessage, ExpectedConditions.visibilityOf(element), 5);
     }
 
-    protected WebElement wait(String logMessage, WebElement element, ExpectedCondition<WebElement> condition, int timeout) {
-        return wait(logMessage, condition, 5);
-    }
-
     protected AbstractPage wait(String logMessage, WebElement element, Function<WebElement, Boolean> condition, int timeout) {
         checkArgument(isNotBlank(logMessage), "log message can not be null or empty");
         checkArgument(nonNull(element), "WebElement can not be null");
@@ -213,6 +209,9 @@ public abstract class AbstractPage {
         action("Drag and Drop", source, we -> new Actions(getDriver()).dragAndDrop(source, destination).perform());
     }
 
+    /**
+     * @deprecated (when, can use dragAndDrop source destination, keeping for reference...)
+     */
     @Deprecated
     protected void dragAndDrop(WebElement source, WebElement destination, boolean old) {
         action("click and hold", source, we -> new Actions(getDriver()).clickAndHold(source));
@@ -220,18 +219,20 @@ public abstract class AbstractPage {
         action("release", source, we -> new Actions(getDriver()).release());
     }
 
+    /**
+     * @deprecated (when, can use dragAndDrop source destination, keeping for reference...)
+     */
     @Deprecated
     protected void dragAndDropBy(WebElement source, int xOffset, int yOffset) {
         new Actions(getDriver()).dragAndDropBy(source, xOffset, yOffset).perform();
     }
 
     /**
-     * Can directly use action method in page class as used in this method.
+     * @deprecated (when, can directly use action is calling class, keeping for reference...)
      */
     @Deprecated
     protected void rightClick(WebElement element) {
         action("Right click", element, pe -> new Actions(getDriver()).moveToElement(pe).contextClick(pe).perform());
-//        new Actions(getDriver()).moveToElement(element).contextClick(element).build().perform();
     }
 
     protected void scrollIntoView(WebElement element){
@@ -260,26 +261,3 @@ public abstract class AbstractPage {
         }
     }
 }
-
-//        protected AbstractPage wait(String logMessage, WebElement element, int timeout) {
-//        return wait(logMessage, element, WebElement::isDisplayed, timeout);
-//    }
-//
-//    protected AbstractPage wait(String logMessage, WebElement element, Function<WebDriver, Boolean> condition, int timeout) {
-//        checkArgument(isNotBlank(logMessage), "log message can not be null or empty");
-//        checkArgument(nonNull(element), "WebElement can not be null");
-//        LogInfo(logMessage);
-//
-//        new FluentWait<>(getDriver())
-//                .withTimeout(Duration.ofSeconds(timeout))
-//                .pollingEvery(Duration.ofSeconds(5))
-//                .ignoreAll(IGNORE_EXCEPTIONS_WHILE_WAITING_SET)
-//                .until(condition);
-//        return this;
-//    }
-
-//    protected AbstractPage webDriverWait(WebElement element){
-//        WebDriverWait wait = new WebDriverWait(getDriver(),10);
-//        wait.until(ExpectedConditions.visibilityOf(element));
-//
-//    }

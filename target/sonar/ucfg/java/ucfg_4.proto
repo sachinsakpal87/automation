@@ -1,0 +1,62 @@
+
+ocom.automation.framework.DataProviderClass#testDataProviderClass(Lorg/testng/ITestContext;)[[Ljava/lang/Object;
+__unknown_file (iTestContext"paramAnnotations*ƒ
+1o
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java (*ò
+ï
+o
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java (K
+%0"hcom.automation.CustomContext#buildCustomContext(Lorg/testng/ITestContext;)Lcom/automation/CustomContext;* "
+com.automation.CustomContext*
+
+iTestContextÅ
+o
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java (L
+%1"$Arrayñ
+ì
+o
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java (L
+%2"
+__arraySet*
+
+%1*
+
+%0Å
+o
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java (	
+%3"$Arrayñ
+ì
+o
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java (	
+%4"
+__arraySet*
+
+%3*
+
+%1"y
+o
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java (
+
+
+%3*È
+paramAnnotationso
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java
+2 
+(M¡
+æ
+o
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java	 	(+
+%5"
+__annotate*'%
+#org.testng.annotations.DataProvider*
+
+iTestContextö
+ó
+o
+e/Users/sachin/automation/automationtest/src/main/java/com/automation/framework/DataProviderClass.java
+@ 
+(L
+iTestContext"__annotation*
+
+%5*
+1

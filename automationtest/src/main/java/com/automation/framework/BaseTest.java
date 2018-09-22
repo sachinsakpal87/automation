@@ -37,11 +37,14 @@ public class BaseTest extends AbstractBaseTest {
         if (iTestResult.getStatus() == ITestResult.FAILURE) {
             File scrFile = ((TakesScreenshot) web.get().getDriver()).getScreenshotAs(OutputType.FILE);
             try {
-                scrFile.createNewFile();
-                String filePath = System.getProperty("user.dir") + "/Result/" + iTestResult.getMethod().getMethodName() + ".png";
-                FileUtils.copyFile(scrFile, new File(filePath));
-                LogInfo("Screenshot captured and placed at location :: %s", filePath);
-                getTest().addScreenCaptureFromPath(filePath, iTestResult.getMethod().getMethodName());
+                if (scrFile.createNewFile()) {
+                    String filePath = System.getProperty("user.dir") + "/Result/" + iTestResult.getMethod().getMethodName() + ".png";
+                    FileUtils.copyFile(scrFile, new File(filePath));
+                    LogInfo("Screenshot captured and placed at location :: %s", filePath);
+                    getTest().addScreenCaptureFromPath(filePath, iTestResult.getMethod().getMethodName());
+                } else {
+                    throw new IOException();
+                }
             } catch (IOException e) {
                 LogError("Error occurred while capturing image.", e, null);
             }

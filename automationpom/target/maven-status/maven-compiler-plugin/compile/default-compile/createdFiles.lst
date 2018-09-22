@@ -1,4 +1,5 @@
 com/automation/framework/WebUser.class
+com/automation/pages/FlightsPageValidator.class
 com/automation/pages/HomePageValidator.class
 com/automation/pages/HotelPageValidator.class
 com/automation/framework/AbstractPage.class
@@ -8,3 +9,4 @@ com/automation/pages/HomePage.class
 com/automation/pages/HotelPage.class
 com/automation/framework/CustomDriverFactory.class
 com/automation/pages/LoginPage.class
+com/automation/pages/FlightsPage.class

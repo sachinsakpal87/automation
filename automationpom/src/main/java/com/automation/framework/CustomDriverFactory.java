@@ -13,6 +13,9 @@ import java.util.concurrent.TimeUnit;
 
 class CustomDriverFactory {
 
+    private CustomDriverFactory(){
+        throw new UnsupportedOperationException();
+    }
     private static final String WEB_DRIVER_IN_CONTEXT = "WEB_DRIVER_IN_CONTEXT";
 
     static WebDriver buildDriver(CustomContext context) {
@@ -27,18 +30,26 @@ class CustomDriverFactory {
     private static WebDriver getLocalBrowserDriver(Browser browser) {
         switch (browser.name()) {
             case "FIREFOX": {
-                FirefoxOptions options = new FirefoxOptions(DesiredCapabilities.firefox());
-                return new FirefoxDriver(options);
+                return getFirefoxDriver();
             }
             case "CHROME": {
-                String userDir = System.getProperty("user.dir");
-                System.setProperty("webdriver.chrome.driver", userDir + "/chromedriver-mac-64bit");
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("--start-maximized");
-                return new ChromeDriver(options);
+                return getChromeDriver();
             }
             default:
                 throw new IllegalArgumentException("Unsupported browser type: " + browser.toString());
         }
+    }
+
+    private static WebDriver getChromeDriver() {
+        String userDir = System.getProperty("user.dir");
+        System.setProperty("webdriver.chrome.driver", userDir + "/chromedriver-mac-64bit");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        return new ChromeDriver(options);
+    }
+
+    private static WebDriver getFirefoxDriver() {
+        FirefoxOptions options = new FirefoxOptions(DesiredCapabilities.firefox());
+        return new FirefoxDriver(options);
     }
 }

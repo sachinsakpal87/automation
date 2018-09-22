@@ -11,6 +11,7 @@ public class FlightsPageValidator extends AbstractPageValidator {
         super(page);
     }
 
+    @Override
     protected FlightsPage getPage() {
         return (FlightsPage) super.getPage();
     }

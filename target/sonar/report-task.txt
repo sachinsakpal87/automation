@@ -1,0 +1,7 @@
+organization=sachinsakpal87-bitbucket
+projectKey=automation
+serverUrl=https://sonarcloud.io
+serverVersion=7.4.0.17063
+dashboardUrl=https://sonarcloud.io/dashboard?id=automation
+ceTaskId=AWX_fPnX-o61MP5s01-M
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWX_fPnX-o61MP5s01-M
