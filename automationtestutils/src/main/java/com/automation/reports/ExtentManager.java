@@ -7,6 +7,10 @@ class ExtentManager {
     private static final String extentReportFile = System.getProperty("user.dir") + "/Result/extentReportFile.html";
     private static ExtentReports extentReports;
 
+    private ExtentManager(){
+        throw new UnsupportedOperationException();
+    }
+
     public synchronized static ExtentReports getReporter() {
 
         if (extentReports == null) {

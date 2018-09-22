@@ -37,40 +37,40 @@ public class ExtentTestManager {
         return test;
     }
 
-    public static synchronized void LogDebug(String message) {
-        LogDebug(message, "");
+    public static synchronized void logDebug(String message) {
+        logDebug(message, "");
     }
 
-    public static synchronized void LogDebug(String message, String... params) {
+    public static synchronized void logDebug(String message, String... params) {
         checkArgument(StringUtils.isNotBlank(message), "Message should not be empty or null.");
         consoleLogger.log(Level.FINE, String.format(message, params));
         if (Objects.nonNull(getTest()))
             getTest().log(Status.DEBUG, String.format(message, params));
     }
 
-    public static synchronized void LogInfo(String message) {
-        LogInfo(message, "");
+    public static synchronized void logInfo(String message) {
+        logInfo(message, "");
     }
 
-    public static synchronized void LogInfo(String message, String... params) {
+    public static synchronized void logInfo(String message, String... params) {
         checkArgument(StringUtils.isNotBlank(message), "Message should not be empty or null.");
         consoleLogger.log(Level.INFO, String.format(message, params));
         if (Objects.nonNull(getTest()))
             getTest().log(Status.INFO, String.format(message, params));
     }
 
-    public static synchronized void LogWarning(String message, String... params) {
+    public static synchronized void logWarning(String message, String... params) {
         checkArgument(StringUtils.isNotBlank(message), "Message should not be empty or null.");
         consoleLogger.log(Level.WARNING, String.format(message, params));
         if (Objects.nonNull(getTest()))
             getTest().warning(String.format(message, params));
     }
 
-    public static synchronized void LogError(String message, String... params) {
-        LogError(message, null, params);
+    public static synchronized void logError(String message, String... params) {
+        logError(message, null, params);
     }
 
-    public static synchronized void LogError(String message, Throwable throwable, String... params) {
+    public static synchronized void logError(String message, Throwable throwable, String... params) {
         checkArgument(StringUtils.isNotBlank(message), "Message should not be empty or null.");
         if (Objects.isNull(throwable)) {
             consoleLogger.log(Level.SEVERE, String.format(message, params));
@@ -83,38 +83,38 @@ public class ExtentTestManager {
         }
     }
 
-    public static synchronized void LogPass(String message, String... params) {
+    public static synchronized void logPass(String message, String... params) {
         checkArgument(StringUtils.isNotBlank(message), "Message should not be empty or null.");
         consoleLogger.log(Level.INFO, String.format(message, params));
         if (Objects.nonNull(getTest()))
             getTest().pass(String.format(message, params));
     }
 
-    public static synchronized void LogFail(String message, Throwable throwable, String... params) {
+    public static synchronized void logFail(String message, Throwable throwable, String... params) {
         checkArgument(StringUtils.isNotBlank(message), "Message should not be empty or null.");
         if (Objects.isNull(throwable)) {
-            consoleLogger.log(Level.SEVERE, String.format(message, params));
+            consoleLogger.log(Level.SEVERE, () -> String.format(message, params));
             if (Objects.nonNull(getTest()))
                 getTest().fail(String.format(message, params));
         } else {
-            consoleLogger.log(Level.SEVERE, String.format(message, params), throwable);
+            consoleLogger.log(Level.SEVERE, throwable, () -> String.format(message, params));
             if (Objects.nonNull(getTest()))
                 getTest().fail(String.format(message, throwable, params));
         }
     }
 
-    public static synchronized void LogSkip(String message, String... params) {
-        LogSkip(message, null, params);
+    public static synchronized void logSkip(String message, String... params) {
+        logSkip(message, null, params);
     }
 
-    public static synchronized void LogSkip(String message, Throwable throwable, String... params) {
+    public static synchronized void logSkip(String message, Throwable throwable, String... params) {
         checkArgument(StringUtils.isNotBlank(message), "Message should not be empty or null.");
         if (Objects.isNull(throwable)) {
-            consoleLogger.log(Level.SEVERE, String.format(message, params));
+            consoleLogger.log(Level.SEVERE, () -> String.format(message, params));
             if (Objects.nonNull(getTest()))
                 getTest().skip(String.format(message, params));
         } else {
-            consoleLogger.log(Level.SEVERE, String.format(message, params), throwable);
+            consoleLogger.log(Level.SEVERE, throwable, () -> String.format(message, params));
             if (Objects.nonNull(getTest()))
                 getTest().skip(String.format(message, throwable, params));
         }
@@ -136,23 +136,21 @@ public class ExtentTestManager {
     }
 
     public static synchronized void saveLogs(String testName) {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        FileHandler fh;
         try {
             FileUtils.deleteDirectory(new File(RESULT_PATH));
-            Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-
             File logDir = new File(RESULT_PATH + "logs/");
             if (!(logDir.exists()))
                 logDir.mkdirs();
 
-            FileHandler fh = new FileHandler(RESULT_PATH+"logs/" + dateFormat.format(date) + "_" + testName.replace(" ", "_") + ".log");
+            fh = new FileHandler(RESULT_PATH + "logs/" + dateFormat.format(date) + "_" + testName.replace(" ", "_") + ".log");
             fh.setFormatter(new SimpleFormatter());
             fh.setLevel(Level.ALL);
             consoleLogger.addHandler(fh);
         } catch (IOException throwable) {
-            consoleLogger.log(Level.SEVERE, String.format("Error while creating log file"), throwable);
-        } finally {
-
+            consoleLogger.log(Level.SEVERE, throwable, () -> "Error while creating log file ");
         }
     }
 

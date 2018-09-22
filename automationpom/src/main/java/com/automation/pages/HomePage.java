@@ -3,6 +3,7 @@ package com.automation.pages;
 import com.automation.annotations.PageUrl;
 import com.automation.framework.AbstractPage;
 import com.automation.framework.WebUser;
+import com.automation.reports.ExtentTestManager;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static com.automation.reports.ExtentTestManager.LogInfo;
+import static com.automation.reports.ExtentTestManager.logInfo;
 import static com.google.common.base.Preconditions.checkArgument;
 
 @PageUrl(url = "/")
@@ -35,13 +36,13 @@ public class HomePage extends AbstractPage {
     }
 
     private HomePage clickMyAccount() {
-        LogInfo("Clicking my account");
+        ExtentTestManager.logInfo("Clicking my account");
         myAccountLink.click();
         return this;
     }
 
     public LoginPage clickLogin() {
-        LogInfo("Clicking login");
+        ExtentTestManager.logInfo("Clicking login");
         clickMyAccount();
         loginLink.click();
         return loadPage(LoginPage.class);

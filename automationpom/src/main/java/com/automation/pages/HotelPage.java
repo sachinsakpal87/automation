@@ -17,6 +17,7 @@ public class HotelPage extends HomePage {
         super(user);
     }
 
+    @Override
     public HotelPageValidator verify() {
         return validator;
     }

@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class DatePicker {
-    private static final String dateFormat = "dd/MM/yyyy";
+    private static final String DATE_FORMAT = "dd/MM/yyyy";
 
     @FindBy(css = "th.prev")
     private WebElement prev;
@@ -40,18 +40,18 @@ public class DatePicker {
         dates.stream()
                 .filter(ele -> Integer.parseInt(ele.getText()) == day)
                 .findFirst()
-                .ifPresent(ele -> ele.click());
+                .ifPresent(WebElement::click);
 
     }
 
     private int getDay(String date) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
         LocalDate dpToDate = LocalDate.parse(date, dtf);
         return dpToDate.getDayOfMonth();
     }
 
     private long getDateDifferenceInMonths(String date) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
         LocalDate dpCurDate = LocalDate.parse("01 " + this.getCurrentMonthFromDatePicker(), dtf);
         LocalDate dpToDate = LocalDate.parse(date, dtf);
         return YearMonth.from(dpCurDate).until(dpToDate, ChronoUnit.MONTHS);
