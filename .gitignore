@@ -30,3 +30,5 @@ chromedriver-mac-64bit
 *.jar
 automation.iml
 ##### BY ME ######
+**/target/**
+.idea/**
