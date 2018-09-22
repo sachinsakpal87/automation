@@ -15,9 +15,9 @@ import static com.google.common.base.Preconditions.checkState;
 public final class CustomContext {
     private final ITestContext itestContext;
     private final TestNGParameters testNGParameters;
-    private final String THIS_PTR_CUSTOM_CONTEXT = "THIS_PTR_CUSTOM_CONTEXT";
+    private static final String THIS_PTR_CUSTOM_CONTEXT = "THIS_PTR_CUSTOM_CONTEXT";
     private final HashMap<String, Object> savedData = new HashMap<>();
-    private WebDriver WEB_DRIVER;
+    private WebDriver webDriver;
 
     private CustomContext(ITestContext iTestContext) {
         this.itestContext = iTestContext;
@@ -65,8 +65,8 @@ public final class CustomContext {
      *
      * @return webdriver object.
      */
-    public WebDriver getDriver() {
-        WebDriver driver = WEB_DRIVER;
+    private WebDriver getDriver() {
+        WebDriver driver = webDriver;
         checkState(Objects.nonNull(driver), "Driver is not set in customcontext.");
         return driver;
     }
@@ -77,7 +77,7 @@ public final class CustomContext {
      * @param driver webdriver object.
      */
     public void setDriver(WebDriver driver) {
-        WEB_DRIVER = driver;
+        webDriver = driver;
     }
 
     public ITestContext getTestNGContext() {

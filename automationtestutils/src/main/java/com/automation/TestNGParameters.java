@@ -12,6 +12,7 @@ import java.util.Objects;
 @Getter
 public class TestNGParameters {
 
+    private static final String BROWSER = "BROWSER";
     private final Browser browser;
     private final URLS urls;
 
@@ -21,7 +22,7 @@ public class TestNGParameters {
      * @param iTestContext iTestContext.
      */
     TestNGParameters(ITestContext iTestContext) {
-        browser = getBrowserFromXMLFile(iTestContext.getCurrentXmlTest(), Browser.valueOf(RuntimeParameters.getSystemProperty("BROWSER", Browser.CHROME.toString())));
+        browser = getBrowserFromXMLFile(iTestContext.getCurrentXmlTest(), Browser.valueOf(RuntimeParameters.getSystemProperty(BROWSER, Browser.CHROME.toString())));
         urls = getURLFromXMLFile(iTestContext.getCurrentXmlTest(), URLS.valueOf(RuntimeParameters.getSystemProperty("URLS", URLS.HOME.getName())));
     }
 
@@ -49,11 +50,11 @@ public class TestNGParameters {
      * @return Browser.
      */
     private Browser getBrowserFromXMLFile(XmlTest xmlTest, Browser defaultValue) {
-        if (Objects.isNull(xmlTest.getParameter("BROWSER")))
+        if (Objects.isNull(xmlTest.getParameter(BROWSER)))
             return defaultValue;
-        String browser = xmlTest.getParameter("BROWSER");
-        if (StringUtils.isBlank(browser) && !Objects.isNull(xmlTest.getSuite().getParameter("BROWSER")))
-            browser = xmlTest.getSuite().getParameter("BROWSER");
+        String browser = xmlTest.getParameter(BROWSER);
+        if (StringUtils.isBlank(browser) && !Objects.isNull(xmlTest.getSuite().getParameter(BROWSER)))
+            browser = xmlTest.getSuite().getParameter(BROWSER);
         return StringUtils.isBlank(browser) ? defaultValue : Browser.valueOf(browser);
     }
 }

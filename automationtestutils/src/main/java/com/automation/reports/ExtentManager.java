@@ -4,7 +4,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 class ExtentManager {
-    private static final String extentReportFile = System.getProperty("user.dir") + "/Result/extentReportFile.html";
+    private static final String EXTENT_REPORT_FILE = System.getProperty("user.dir") + "/Result/extentReportFile.html";
     private static ExtentReports extentReports;
 
     private ExtentManager(){
@@ -14,7 +14,7 @@ class ExtentManager {
     public synchronized static ExtentReports getReporter() {
 
         if (extentReports == null) {
-            ExtentHtmlReporter extentHtmlReporter = new ExtentHtmlReporter(extentReportFile);
+            ExtentHtmlReporter extentHtmlReporter = new ExtentHtmlReporter(EXTENT_REPORT_FILE);
             extentHtmlReporter.loadXMLConfig(System.getProperty("user.dir") + "/extent-config.xml");
             extentReports = new ExtentReports();
             extentReports.attachReporter(extentHtmlReporter);

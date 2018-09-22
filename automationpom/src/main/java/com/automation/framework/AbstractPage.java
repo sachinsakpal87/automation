@@ -27,6 +27,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 public abstract class AbstractPage {
 
     private static final Set<Class<? extends Throwable>> IGNORE_EXCEPTIONS_WHILE_WAITING_SET = ImmutableSet.of(NotFoundException.class, ElementNotVisibleException.class, IndexOutOfBoundsException.class, NullPointerException.class, StaleElementReferenceException.class, IllegalStateException.class, new Class[]{NoSuchFrameException.class, WebDriverException.class});
+    private static final String LOG_MESSAGE_CAN_NOT_BE_NULL_OR_EMPTY = "log message can not be null or empty";
 
     @Getter
     private final WebUser webUser;
@@ -78,7 +79,7 @@ public abstract class AbstractPage {
     }
 
     protected <T extends AbstractPage> T action(String logMessage, WebElement element, Consumer<WebElement> action, T page) {
-        checkArgument(isNotBlank(logMessage), "log message can not be null or empty");
+        checkArgument(isNotBlank(logMessage), LOG_MESSAGE_CAN_NOT_BE_NULL_OR_EMPTY);
         ExtentTestManager.logInfo(logMessage);
         return action(element, action, page);
     }
@@ -90,7 +91,7 @@ public abstract class AbstractPage {
     }
 
     protected AbstractPage action(String logMessage, WebElement element, Consumer<WebElement> action) {
-        checkArgument(isNotBlank(logMessage), "log message can not be null or empty");
+        checkArgument(isNotBlank(logMessage), LOG_MESSAGE_CAN_NOT_BE_NULL_OR_EMPTY);
         ExtentTestManager.logInfo(logMessage);
         return action(element, action);
     }
@@ -107,7 +108,7 @@ public abstract class AbstractPage {
     }
 
     protected AbstractPage action(String logMessage, Select element, Consumer<Select> action) {
-        checkArgument(isNotBlank(logMessage), "log message can not be null or empty");
+        checkArgument(isNotBlank(logMessage), LOG_MESSAGE_CAN_NOT_BE_NULL_OR_EMPTY);
         checkArgument(nonNull(element), "Select can not be null");
         ExtentTestManager.logInfo(logMessage);
         return action(element, action);
@@ -124,7 +125,7 @@ public abstract class AbstractPage {
     }
 
     protected AbstractPage wait(String logMessage, WebElement element, Function<WebElement, Boolean> condition, int timeout) {
-        checkArgument(isNotBlank(logMessage), "log message can not be null or empty");
+        checkArgument(isNotBlank(logMessage), LOG_MESSAGE_CAN_NOT_BE_NULL_OR_EMPTY);
         checkArgument(nonNull(element), "WebElement can not be null");
         ExtentTestManager.logInfo(logMessage);
 
@@ -137,7 +138,7 @@ public abstract class AbstractPage {
     }
 
     protected WebElement wait(String logMessage, ExpectedCondition<WebElement> condition, int timeout) {
-        checkArgument(isNotBlank(logMessage), "log message can not be null or empty");
+        checkArgument(isNotBlank(logMessage), LOG_MESSAGE_CAN_NOT_BE_NULL_OR_EMPTY);
         ExtentTestManager.logInfo(logMessage);
         return new FluentWait<>(getDriver())
                 .withTimeout(Duration.ofSeconds(timeout))
