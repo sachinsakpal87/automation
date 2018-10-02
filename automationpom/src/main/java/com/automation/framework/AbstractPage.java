@@ -233,7 +233,7 @@ public abstract class AbstractPage {
         checkNotNull(destination, "Destination WebElement can not be null");
         action("click and hold", source, we -> new Actions(getDriver()).clickAndHold(source));
         moveToElement(destination);
-        action("release", source, we -> new Actions(getDriver()).release());
+        action("release", source, we -> new Actions(getDriver()).release().perform());
     }
 
     /**
@@ -260,11 +260,11 @@ public abstract class AbstractPage {
     }
 
     protected void scrollDown() {
-        ((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(0,250)", "");
+        ((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(0,250)");
     }
 
     protected void scrollUp() {
-        ((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(250,0)", "");
+        ((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(250,0)");
     }
 
     protected void scrollByCordinates(WebElement webElement) {
