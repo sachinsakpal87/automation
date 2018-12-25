@@ -15,7 +15,7 @@ public class ToolsQAWeatherApi {
         this.apiClient = apiClient;
         this.environmentProperties = environmentProperties;
 
-        apiClient.buildRequestUrlWithRequiredPort(environmentProperties.getEnvironmentProperty("trade.validation.api.port", true));
+        apiClient.buildRequestUrlWithRequiredPort(environmentProperties.getEnvironmentProperty("toolsqa.weather.api.port", true));
         apiClient.setAuthorizationType(Authorization.NONE);
         apiClient.clearHeaders();
         apiClient.setContentType(ContentType.JSON);
