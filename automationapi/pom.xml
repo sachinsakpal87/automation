@@ -11,5 +11,18 @@
 
     <artifactId>automation-api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.selenium.study</groupId>
+            <artifactId>automation-testutils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
