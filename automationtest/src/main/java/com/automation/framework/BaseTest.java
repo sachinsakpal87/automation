@@ -3,6 +3,10 @@ package com.automation.framework;
 import com.automation.CustomContext;
 import com.automation.core.ApiWrapper;
 import com.automation.environment.EnvironmentProperties;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
+
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -17,6 +21,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import static com.automation.reports.ExtentTestManager.*;
+
+import javax.imageio.ImageIO;
 
 public class BaseTest extends AbstractBaseTest {
 
@@ -42,18 +48,21 @@ public class BaseTest extends AbstractBaseTest {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult iTestResult) {
-        if (iTestResult.getStatus() == ITestResult.FAILURE) {
-            File scrFile = ((TakesScreenshot) web.get().getDriver()).getScreenshotAs(OutputType.FILE);
+    public void afterMethod(ITestResult iTestResult) throws IOException {
+        if (iTestResult.getStatus() == ITestResult.FAILURE && web.get() != null) {
+            Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(web.get().getDriver());
+
+//            File scrFile = ((TakesScreenshot) web.get().getDriver()).getScreenshotAs(OutputType.FILE);
             try {
-                if (scrFile.createNewFile()) {
+//                if ((scrFile.exists()||scrFile.createNewFile())) {
                     String filePath = System.getProperty("user.dir") + "/Result/" + iTestResult.getMethod().getMethodName() + ".png";
-                    FileUtils.copyFile(scrFile, new File(filePath));
+                    ImageIO.write(screenshot.getImage(), "PNG", new File(filePath));
+//                    FileUtils.copyFile(scrFile, new File(filePath));
                     logInfo("Screenshot captured and placed at location :: %s", filePath);
                     getTest().addScreenCaptureFromPath(filePath, iTestResult.getMethod().getMethodName());
-                } else {
-                    throw new IOException();
-                }
+//                } else {
+//                    throw new IOException();
+//                }
             } catch (IOException e) {
                 logError("Error occurred while capturing image.", e, null);
             }

@@ -54,7 +54,7 @@ public abstract class AbstractPage {
         return getDriver().getTitle();
     }
 
-    protected String getCurrentUrl() {
+    protected String getBrowserUrl() {
         return getDriver().getCurrentUrl();
     }
 

@@ -42,7 +42,7 @@ class CustomDriverFactory {
 
     private static WebDriver getChromeDriver() {
         String userDir = System.getProperty("user.dir");
-        System.setProperty("webdriver.chrome.driver", userDir + "/chromedriver-mac-64bit");
+        System.setProperty("webdriver.chrome.driver", userDir + "/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
         return new ChromeDriver(options);

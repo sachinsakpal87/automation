@@ -14,7 +14,7 @@ public class HotelPageValidator extends HomePageValidator {
     }
 
     @Override
-    protected HotelPage getPage() {
+    public HotelPage getPage() {
         return (HotelPage) super.getPage();
     }
 

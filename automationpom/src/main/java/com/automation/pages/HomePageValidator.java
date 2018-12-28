@@ -12,7 +12,7 @@ public class HomePageValidator extends AbstractPageValidator {
     }
 
     @Override
-    protected HomePage getPage() {
+    public HomePage getPage() {
         return (HomePage) super.getPage();
     }
 

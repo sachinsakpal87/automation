@@ -38,6 +38,7 @@ public class HomePageTest extends BaseTest {
     public void testFlightsPage(){
         web()
                 .openPageUrl(FlightsPage.class)
+                .verify().checkPageUrl()
                 .enterDepartureDate("25/09/2018")
                 .selectCabinClass("first")
                 .clickSearch();

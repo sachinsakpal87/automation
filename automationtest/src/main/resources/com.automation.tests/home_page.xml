@@ -14,40 +14,40 @@
             </class>
         </classes>
     </test>
-    <!--<test name="Check Flight page">-->
-        <!--<classes>-->
-            <!--<class name="com.automation.tests.HomePageTest">-->
-                <!--<methods>-->
-                    <!--<include name="testFlightsPage"/>-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
-    <!--<test name="Check Login page">-->
-        <!--<classes>-->
-            <!--<class name="com.automation.tests.HomePageTest">-->
-                <!--<methods>-->
-                    <!--<include name="testLoginPage"/>-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
-    <!--<test name="Check login with credentials">-->
-        <!--<classes>-->
-            <!--<class name="com.automation.tests.HomePageTest">-->
-                <!--<methods>-->
-                    <!--<include name="testLoginWithCredentials"/>-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
-    <!--<test name="Check Home page title">-->
-        <!--<classes>-->
-            <!--<class name="com.automation.tests.HomePageTest">-->
-                <!--<methods>-->
-                    <!--<include name="testHomePageTitle"/>-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
+    <test name="Check Flight page">
+        <classes>
+            <class name="com.automation.tests.HomePageTest">
+                <methods>
+                    <include name="testFlightsPage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Check Login page">
+        <classes>
+            <class name="com.automation.tests.HomePageTest">
+                <methods>
+                    <include name="testLoginPage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Check login with credentials">
+        <classes>
+            <class name="com.automation.tests.HomePageTest">
+                <methods>
+                    <include name="testLoginWithCredentials"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Check Home page title">
+        <classes>
+            <class name="com.automation.tests.HomePageTest">
+                <methods>
+                    <include name="testHomePageTitle"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
