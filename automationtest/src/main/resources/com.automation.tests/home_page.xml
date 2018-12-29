@@ -41,13 +41,13 @@
             </class>
         </classes>
     </test>
-    <test name="Check Home page title">
-        <classes>
-            <class name="com.automation.tests.HomePageTest">
-                <methods>
-                    <include name="testHomePageTitle"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
+    <!--<test name="Check Home page title">-->
+        <!--<classes>-->
+            <!--<class name="com.automation.tests.HomePageTest">-->
+                <!--<methods>-->
+                    <!--<include name="testHomePageTitle"/>-->
+                <!--</methods>-->
+            <!--</class>-->
+        <!--</classes>-->
+    <!--</test>-->
 </suite>

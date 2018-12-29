@@ -28,7 +28,7 @@ public class LoginPage extends AbstractPage {
     public LoginPage enterCredentials(String username, String password) {
         checkArgument(StringUtils.isNotBlank(username), "Username should not be null or empty");
         checkArgument(StringUtils.isNotBlank(password), "password should not be null or empty");
-        wait("Wait till username displayed", this.username, 4);
+        wait("Wait till username displayed", this.username,pe->pe.isDisplayed(), 4);
         if (this.username.isDisplayed()) {
             action("Clearing Username :: ", this.username, WebElement::clear);
             action(String.format("Entering Username :: %s", username), this.username, we -> we.sendKeys(username));

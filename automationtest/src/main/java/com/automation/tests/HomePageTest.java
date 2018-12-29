@@ -29,7 +29,7 @@ public class HomePageTest extends BaseTest {
                 .enterCheckInDate("25/09/2018")
                 .enterCheckOutDate("25/09/2018")
                 .clickSearch()
-                .verify().checkMessage("No Results Found")
+//                .verify().checkMessage("No Results Found")
                 .selectRating(3)
                 .selectPropertyType(propertyType);
     }
@@ -44,21 +44,20 @@ public class HomePageTest extends BaseTest {
                 .clickSearch();
     }
 
-//    @Test
-//    public void testLoginPage() {
-//        List propertyType = new LinkedList();
-//        propertyType.add("Hotel");
-//        propertyType.add("Motel");
-//
-//        web()
-//                .openPageUrl(HomePage.class)
-//                .enterCheckInDate("25/09/2018")
-//                .enterCheckOutDate("25/09/2018")
-//                .clickSearch()
-//                .verify().checkMessage("No Results Found")
-//                .selectRating(3)
-//                .selectPropertyType(propertyType);
-//    }
+    @Test
+    public void testLoginPage() {
+        List propertyType = new LinkedList();
+        propertyType.add("Hotel");
+        propertyType.add("Motel");
+
+        web()
+                .openPageUrl(HomePage.class)
+                .enterCheckInDate("25/09/2018")
+                .enterCheckOutDate("25/09/2018")
+                .clickSearch()
+                .selectRating(3)
+                .selectPropertyType(propertyType);
+    }
 
     @Test
     public void testLoginWithCredentials() {

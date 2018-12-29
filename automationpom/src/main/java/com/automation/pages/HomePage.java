@@ -20,7 +20,7 @@ public class HomePage extends AbstractPage {
     private final HomePageValidator validator = new HomePageValidator(this);
     @FindBy(css = "nav.navbar-default li[id='li_myaccount']>a")
     private WebElement myAccountLink;
-    @FindBy(css = "div[class='tbar-top hidden-sm hidden-xs'] li[id='li_myaccount']>ul[class='dropdown-menu'] li>a[href='https://www.phptravels.net/login']")
+    @FindBy(xpath = "//li[@id='li_myaccount'  and @class='open']//a[contains(text(),'Login')]")
     private WebElement loginLink;
     @FindBy(css = "input[name='checkin']")
     private WebElement checkIn;
@@ -36,16 +36,12 @@ public class HomePage extends AbstractPage {
     }
 
     private HomePage clickMyAccount() {
-        ExtentTestManager.logInfo("Clicking my account");
-        myAccountLink.click();
-        return this;
+        return action("Clicking my account", myAccountLink, this::click,this);
     }
 
     public LoginPage clickLogin() {
-        ExtentTestManager.logInfo("Clicking login");
         clickMyAccount();
-        loginLink.click();
-        return loadPage(LoginPage.class);
+        return action("Clicking login", loginLink, this::click,loadPage(LoginPage.class));
     }
 
     public HomePageValidator verify() {
@@ -69,7 +65,7 @@ public class HomePage extends AbstractPage {
     }
 
     public HomePage selectRating(int rating){
-        action("Selecting rating", ratingsList.findElement(By.xpath(String.format("//input[@id='%d']/following-sibling::ins",rating))),this::click,this);
+        action("Selecting rating", findElement(By.xpath(String.format("//input[@id='%d']/following-sibling::ins",rating))),this::click,this);
         return this;
     }
 
