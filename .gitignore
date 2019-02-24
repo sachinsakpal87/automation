@@ -33,3 +33,5 @@ automation.iml
 ##### BY ME ######
 **/target/**
 .idea/**
+.DS_Store
+chromedriver
