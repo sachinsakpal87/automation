@@ -1,64 +1,63 @@
 package com.automation.utils;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 public class DatePicker {
-    private static final String DATE_FORMAT = "dd/MM/yyyy";
+	private static final String DATE_FORMAT = "dd/MM/yyyy";
 
-    @FindBy(css = "th.prev")
-    private WebElement prev;
+	@FindBy(css = "th.prev")
+	private WebElement prev;
 
-    @FindBy(css = "th.next")
-    private WebElement next;
+	@FindBy(css = "th.next")
+	private WebElement next;
 
-    @FindBy(css = "div.ui-datepicker-title")
-    private WebElement curDate;
+	@FindBy(css = "div.ui-datepicker-title")
+	private WebElement curDate;
 
-    @FindBy(css = "a.ui-state-default")
-    private List< WebElement > dates;
+	@FindBy(css = "a.ui-state-default")
+	private List<WebElement> dates;
 
-    public void setDate(String date) {
+	public void setDate(String date) {
 
-        long diff = this.getDateDifferenceInMonths(date);
-        int day = this.getDay(date);
+		long diff = this.getDateDifferenceInMonths(date);
+		int day = this.getDay(date);
 
-        WebElement arrow = diff >= 0 ? next : prev;
-        diff = Math.abs(diff);
+		WebElement arrow = diff >= 0 ? next : prev;
+		diff = Math.abs(diff);
 
-        //click the arrows
-        for (int i = 0; i < diff; i++)
-            arrow.click();
+		//click the arrows
+		for (int i = 0; i < diff; i++) {
+			arrow.click();
+		}
 
-        //select the date
-        dates.stream()
-                .filter(ele -> Integer.parseInt(ele.getText()) == day)
-                .findFirst()
-                .ifPresent(WebElement::click);
+		//select the date
+		dates.stream()
+				.filter(ele -> Integer.parseInt(ele.getText()) == day)
+				.findFirst()
+				.ifPresent(WebElement::click);
+	}
 
-    }
+	private int getDay(String date) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
+		LocalDate dpToDate = LocalDate.parse(date, dtf);
+		return dpToDate.getDayOfMonth();
+	}
 
-    private int getDay(String date) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
-        LocalDate dpToDate = LocalDate.parse(date, dtf);
-        return dpToDate.getDayOfMonth();
-    }
+	private long getDateDifferenceInMonths(String date) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
+		LocalDate dpCurDate = LocalDate.parse("01 " + this.getCurrentMonthFromDatePicker(), dtf);
+		LocalDate dpToDate = LocalDate.parse(date, dtf);
+		return YearMonth.from(dpCurDate).until(dpToDate, ChronoUnit.MONTHS);
+	}
 
-    private long getDateDifferenceInMonths(String date) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
-        LocalDate dpCurDate = LocalDate.parse("01 " + this.getCurrentMonthFromDatePicker(), dtf);
-        LocalDate dpToDate = LocalDate.parse(date, dtf);
-        return YearMonth.from(dpCurDate).until(dpToDate, ChronoUnit.MONTHS);
-    }
-
-    private String getCurrentMonthFromDatePicker() {
-        return this.curDate.getText();
-    }
-
+	private String getCurrentMonthFromDatePicker() {
+		return this.curDate.getText();
+	}
 }

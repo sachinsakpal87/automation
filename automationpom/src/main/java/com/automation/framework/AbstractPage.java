@@ -1,20 +1,11 @@
 package com.automation.framework;
 
-import com.automation.reports.ExtentTestManager;
-import com.google.common.collect.ImmutableSet;
-
-import lombok.Getter;
-
-import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.internal.Locatable;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Select;
+import static com.automation.reports.ExtentTestManager.logInfo;
+import static com.automation.reports.ExtentTestManager.logWarning;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.nonNull;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.time.Duration;
 import java.util.Iterator;
@@ -23,12 +14,28 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static com.automation.reports.ExtentTestManager.logInfo;
-import static com.automation.reports.ExtentTestManager.logWarning;
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static java.util.Objects.nonNull;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import lombok.Getter;
+
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchFrameException;
+import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.internal.Locatable;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+
+import com.google.common.collect.ImmutableSet;
 
 public abstract class AbstractPage {
 
@@ -89,7 +96,7 @@ public abstract class AbstractPage {
 		return action(element, action, page);
 	}
 
-	private  <T extends AbstractPage> T action(WebElement webElement, Consumer<WebElement> action, T page) {
+	private <T extends AbstractPage> T action(WebElement webElement, Consumer<WebElement> action, T page) {
 		action(webElement, action);
 		return page;
 	}
