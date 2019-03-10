@@ -41,6 +41,8 @@ public abstract class AbstractPage {
 
 	private static final Set<Class<? extends Throwable>> IGNORE_EXCEPTIONS_WHILE_WAITING_SET = ImmutableSet.of(NotFoundException.class, ElementNotVisibleException.class, IndexOutOfBoundsException.class, NullPointerException.class, StaleElementReferenceException.class, IllegalStateException.class, new Class[] { NoSuchFrameException.class, WebDriverException.class });
 	private static final String LOG_MESSAGE_CAN_NOT_BE_NULL_OR_EMPTY = "log message can not be null or empty";
+	private static final Integer DEFAULT_POLLING = 2;
+	private static final Integer DEFAULT_TIMEOUT = 2;
 
 	@Getter
 	private final WebUser webUser;
@@ -55,7 +57,7 @@ public abstract class AbstractPage {
 	}
 
 	private void safeClick(WebElement webElement) {
-		action("Click", webElement, arg -> arg.click(), this);
+		action("Click", webElement, WebElement::click, this);
 	}
 
 	public String getPageTitle() {
@@ -130,7 +132,7 @@ public abstract class AbstractPage {
 	}
 
 	protected AbstractPage wait(String logMessage, WebElement element, int timeout) {
-		return wait(logMessage, element, pe -> pe.isEnabled(), 5);
+		return wait(logMessage, element, pe -> pe.isEnabled(), timeout);
 	}
 
 	protected AbstractPage wait(String logMessage, WebElement webElement, Function<WebElement, Boolean> condition, int timeout) {
@@ -140,7 +142,7 @@ public abstract class AbstractPage {
 
 		new FluentWait<>(webElement)
 				.withTimeout(Duration.ofSeconds(timeout))
-				.pollingEvery(Duration.ofSeconds(5))
+				.pollingEvery(Duration.ofSeconds(DEFAULT_POLLING))
 				.ignoreAll(IGNORE_EXCEPTIONS_WHILE_WAITING_SET)
 				.until(condition);
 		return this;
@@ -151,7 +153,7 @@ public abstract class AbstractPage {
 		logInfo(logMessage);
 		return new FluentWait<>(getDriver())
 				.withTimeout(Duration.ofSeconds(timeout))
-				.pollingEvery(Duration.ofSeconds(5))
+				.pollingEvery(Duration.ofSeconds(DEFAULT_POLLING))
 				.ignoreAll(IGNORE_EXCEPTIONS_WHILE_WAITING_SET)
 				.until(condition);
 	}
@@ -161,40 +163,40 @@ public abstract class AbstractPage {
 	}
 
 	protected Alert switchToAlert() {
-		return switchToAlert(5);
+		return switchToAlert(DEFAULT_TIMEOUT);
 	}
 
 	protected Alert switchToAlert(int timeout) {
 		return new FluentWait<>(getDriver())
 				.withTimeout(Duration.ofSeconds(timeout))
-				.pollingEvery(Duration.ofSeconds(5))
+				.pollingEvery(Duration.ofSeconds(DEFAULT_POLLING))
 				.ignoreAll(IGNORE_EXCEPTIONS_WHILE_WAITING_SET)
 				.until(driver -> driver.switchTo().alert());
 	}
 
 	protected AbstractPage switchToWindow(String windowName) {
-		return switchToWindow(windowName, 5);
+		return switchToWindow(windowName, DEFAULT_TIMEOUT);
 	}
 
 	protected AbstractPage switchToWindow(String windowName, int timeout) {
 		checkArgument(StringUtils.isNotBlank(windowName), "Window name can not be null or blank");
 		new FluentWait<>(getDriver())
 				.withTimeout(Duration.ofSeconds(timeout))
-				.pollingEvery(Duration.ofSeconds(5))
+				.pollingEvery(Duration.ofSeconds(DEFAULT_POLLING))
 				.ignoreAll(IGNORE_EXCEPTIONS_WHILE_WAITING_SET)
 				.until(driver -> driver.switchTo().window(windowName));
 		return this;
 	}
 
 	protected AbstractPage switchToiFrame(String frameName) {
-		return switchToiFrame(frameName, 5);
+		return switchToiFrame(frameName, DEFAULT_TIMEOUT);
 	}
 
 	protected AbstractPage switchToiFrame(String frameName, int timeout) {
 		checkArgument(StringUtils.isNotBlank(frameName), "Frame name can not be null or blank");
 		new FluentWait<>(getDriver())
 				.withTimeout(Duration.ofSeconds(timeout))
-				.pollingEvery(Duration.ofSeconds(5))
+				.pollingEvery(Duration.ofSeconds(DEFAULT_POLLING))
 				.ignoreAll(IGNORE_EXCEPTIONS_WHILE_WAITING_SET)
 				.until(driver -> driver.switchTo().frame(frameName));
 		return this;
@@ -307,7 +309,7 @@ public abstract class AbstractPage {
 		} catch (Exception te) {
 			try {
 				logWarning("Could not click element, attempt to move to element and click");
-				wait("Wail till element displayed ", webElement, 5);
+				wait("Wail till element displayed ", webElement, DEFAULT_TIMEOUT);
 				safeClick(webElement);
 			} catch (Exception te1) {
 				logWarning("Could not click element, attempt to move to element and click");
