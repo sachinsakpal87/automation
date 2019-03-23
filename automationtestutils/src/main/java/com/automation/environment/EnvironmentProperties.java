@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import org.apache.commons.lang3.StringUtils;
 
 public class EnvironmentProperties {
-	private Map<String, String> environmentProperties = new HashMap<>();
+	private Map<String, String> envProperties = new HashMap<>();
 
 	public EnvironmentProperties() {
 		readEnvironmentProperties();
@@ -19,12 +19,12 @@ public class EnvironmentProperties {
 		ResourceBundle rb = ResourceBundle.getBundle(propertyFile);
 
 		for (String key : rb.keySet()) {
-			environmentProperties.put(key, rb.getString(key));
+			envProperties.put(key, rb.getString(key));
 		}
 	}
 
 	public String getEnvironmentProperty(String key, boolean isNullAllowed) {
-		String property = environmentProperties.get(key);
+		String property = envProperties.get(key);
 		if (!isNullAllowed && property == null) {
 			throw new IllegalStateException("Property not defined for " + key);
 		}

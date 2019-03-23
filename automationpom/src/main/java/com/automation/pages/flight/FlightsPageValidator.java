@@ -13,7 +13,7 @@ public class FlightsPageValidator extends AbstractPageValidator<FlightsPage> {
 
 	@Override
 	public FlightsPage getPage() {
-		return (FlightsPage) super.getPage();
+		return super.getPage();
 	}
 
 	public FlightsPage isTitleDisplayed() {

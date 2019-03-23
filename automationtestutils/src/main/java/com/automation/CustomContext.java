@@ -21,7 +21,7 @@ public final class CustomContext {
 	private WebDriver webDriver;
 
 	private CustomContext(ITestContext iTestContext) {
-		System.out.println("ITest Context" + iTestContext.getName() + "->" + iTestContext.toString());
+//		System.out.println("ITest Context" + iTestContext.getName() + "->" + iTestContext.toString());
 		this.itestContext = iTestContext;
 		testNGParameters = new TestNGParameters(iTestContext);
 		this.itestContext.setAttribute(THIS_PTR_CUSTOM_CONTEXT, this);
@@ -35,7 +35,7 @@ public final class CustomContext {
 	 */
 	public static CustomContext buildCustomContext(ITestContext iTestContext) {
 		checkArgument(Objects.nonNull(iTestContext), "ITestContext value is null");
-		System.out.println("Build Custom context called");
+//		System.out.println("Build Custom context called");
 		return new CustomContext(iTestContext);
 	}
 
